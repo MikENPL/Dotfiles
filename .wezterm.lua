@@ -3,29 +3,29 @@ local config = {}
 
 -- Wallpaper shenanigans
 local wallpaper_dir = 'C:/Users/Mik/Pictures/Wallpaper/Monhun/'
-local function Wallpaper(name, h_align, brightness)
+local function Wallpaper(name, options)
+    options = options or {}
     return {
         name = name,
-        h_align = h_align or 'Center',
-        brightness = brightness or 0.15
+        h_align = options.h_align or 'Center',
+        v_align = options.v_align or 'Middle',
+        brightness = options.brightness or 0.15
     }
 end
--- Second arg is to adjust the wallpaper alignment to the focal point of the image,
--- Thrid on is to adjust brightness for darker images
 local wallpapers = {
-    Wallpaper('abysal.png','Center', 0.5),
-    Wallpaper('dalamadur.png', 'Left'),
+    Wallpaper('abysal.png',{brightness = 0.5}),
+    Wallpaper('dalamadur.png', {h_align = 'Left'}),
     Wallpaper('desert.png'),
-    Wallpaper('doshaguma.png', 'Right'),
-    Wallpaper('fatalis.png', 'Center', 0.5),
-    Wallpaper('gore.png', 'Right'),
-    Wallpaper('jin.png', 'Right'),
+    Wallpaper('doshaguma.png', {h_align = 'Right'}),
+    Wallpaper('fatalis.png', {brightness = 0.5}),
+    Wallpaper('gore.png', {h_align = 'Right'}),
+    Wallpaper('jin.png', {h_align = 'Right'}),
     Wallpaper('lagiacrus.png'),
-    Wallpaper('nargacuga.png', 'Left'),
-    Wallpaper('tetsucabra.png', 'Left'),
+    Wallpaper('nargacuga.png', {h_align = 'Left'}),
+    Wallpaper('tetsucabra.png', {h_align = 'Left'}),
     Wallpaper('tobi.png'),
-    Wallpaper('ukanlos.png', 'Left'),
-    Wallpaper('velkhana.png', 'Right')
+    Wallpaper('ukanlos.png', {h_align = 'Left'}),
+    Wallpaper('velkhana.png', {h_align = 'Right'})
 }
 math.randomseed(os.time())
 local chosen_wallpaper = wallpapers[math.random(#wallpapers)]
@@ -37,7 +37,7 @@ local function buildWallpaper()
             hsb = {brightness = wallpaper_brigthness},
             width = 'Cover',
             height = 'Cover',
-            vertical_align = 'Middle',
+            vertical_align = chosen_wallpaper.v_align,
             horizontal_align = chosen_wallpaper.h_align
         }
     }
